@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManager-ZaMaloprodaju",
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Sistem-Za-Maloprodaju-DB", "Sistem-Za-Maloprodaju-DB\Sistem-Za-Maloprodaju-DB.sqlproj", "{D68EA69B-D21C-41C8-893F-A35D92BAB5AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sistem-Za-Maloprodaju-WPFUserInterface", "Sistem-Za-Maloprodaju-WPFUserInterface\Sistem-Za-Maloprodaju-WPFUserInterface.csproj", "{A9932A3A-C0B4-43BC-9BAC-B4BD32EC4829}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{D68EA69B-D21C-41C8-893F-A35D92BAB5AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D68EA69B-D21C-41C8-893F-A35D92BAB5AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D68EA69B-D21C-41C8-893F-A35D92BAB5AD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A9932A3A-C0B4-43BC-9BAC-B4BD32EC4829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9932A3A-C0B4-43BC-9BAC-B4BD32EC4829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9932A3A-C0B4-43BC-9BAC-B4BD32EC4829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9932A3A-C0B4-43BC-9BAC-B4BD32EC4829}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
