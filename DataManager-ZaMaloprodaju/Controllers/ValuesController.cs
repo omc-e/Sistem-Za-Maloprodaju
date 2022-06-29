@@ -14,7 +14,7 @@ namespace DataManager_ZaMaloprodaju.Controllers
         // GET api/values
         public IEnumerable<string> Get()
         {
-
+                    //Getting user ID based on who is logged in 
             string userID = RequestContext.Principal.Identity.GetUserId();
             return new string[] { "value1", "value2", userID };
         }
