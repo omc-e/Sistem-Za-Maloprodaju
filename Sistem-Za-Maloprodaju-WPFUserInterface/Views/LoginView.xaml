@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Sistem_Za_Maloprodaju_WPFUserInterface.Views.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Sistem_Za_Maloprodaju_WPFUserInterface.Views"
+             mc:Ignorable="d" Background="White" FontSize="22"
+             d:DesignHeight="425" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 0 0 30"
+                   HorizontalAlignment="Center" FontSize="52" FontFamily="Segoe UI Light">
+            Login Form
+        </TextBlock>
+        <!--Username row-->
+        <TextBlock Grid.Row="1" Grid.Column="1" Margin="0 0 10 15" >
+            Username:
+        </TextBlock>
+        <TextBox x:Name="UserName" Grid.Column="2" Grid.Row="1" MinWidth="200" Margin="0 0 0 15" />
+        <!--Password row-->
+        <TextBlock Grid.Row="2" Grid.Column="1" Margin="0 0 10 15">
+            Password:
+        </TextBlock>
+        <PasswordBox x:Name="Password" Grid.Column="2" Grid.Row="2" MinWidth="200" Margin="0 0 0 15" />
+        
+        <!--Login button row-->
+        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center"
+                x:Name="LogIn" Padding="30 5">
+            Login
+        </Button>
+    </Grid>
+</UserControl>
