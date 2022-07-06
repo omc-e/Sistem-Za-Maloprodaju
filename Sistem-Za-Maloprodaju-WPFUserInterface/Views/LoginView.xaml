@@ -19,25 +19,35 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 0 0 30"
                    HorizontalAlignment="Center" FontSize="52" FontFamily="Segoe UI Light">
             Login Form
         </TextBlock>
+       <!--Error Message row-->
+        <TextBlock x:Name="ErrorMessage"
+                   Visibility="{Binding IsErrorVisible, Converter={StaticResource BooleanToVisibilitConverter},FallbackValue=Collapsed}"
+                   Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                   Margin="0 0 0 20" Foreground="Red" MaxWidth="350" HorizontalAlignment="Center"
+                   TextWrapping="Wrap"
+                   />
         <!--Username row-->
-        <TextBlock Grid.Row="1" Grid.Column="1" Margin="0 0 10 15" >
+        <TextBlock Grid.Row="2" Grid.Column="1" Margin="0 0 15 15" >
             Username:
         </TextBlock>
-        <TextBox x:Name="UserName" Grid.Column="2" Grid.Row="1" MinWidth="250" Margin="0 0 0 15" />
+        <TextBox x:Name="UserName" Grid.Column="2" Grid.Row="2" MinWidth="350" Margin="0 0 0 15"
+                 MaxWidth="350"/>
         <!--Password row-->
-        <TextBlock Grid.Row="2" Grid.Column="1" Margin="0 0 10 15">
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="0 0 15 15">
             Password:
         </TextBlock>
-        <PasswordBox x:Name="Password" Grid.Column="2" Grid.Row="2" MinWidth="250" Margin="0 0 0 15" />
+        <PasswordBox x:Name="Password" Grid.Column="2" Grid.Row="3" MinWidth="350" Margin="0 0 0 15"
+                     MaxWidth="350"/>
         
         <!--Login button row-->
-        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center"
+        <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center"
                 x:Name="LogIn" Padding="30 5">
             Login
         </Button>

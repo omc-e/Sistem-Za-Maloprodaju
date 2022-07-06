@@ -20,7 +20,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface
         public Bootstrapper()
         {
             Initialize();
-
+                        
             ConventionManager.AddElementConvention<PasswordBox>(PasswordBoxHelper.BoundPasswordProperty, "Password", "PasswordChanged");
 
         }
@@ -36,7 +36,8 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface
 
             _container
                 .Singleton<IWindowManager, WindowManager>()
-                .Singleton<IEventAggregator, EventAggregator>();
+                .Singleton<IEventAggregator, EventAggregator>()
+                .Singleton<IAPIHelper,APIHelper>();
 
             //reflection
             //If you need to use multiple times it is better to use String Builder 

@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using Sistem_Za_Maloprodaju_WPFUserInterface.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,16 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
     {
         private string _userName;
         private string _password;
+        private IAPIHelper _apiHelper;
 
+        public LoginViewModel(IAPIHelper aPIHelper)
+        {
+            _apiHelper = aPIHelper;
+        }
         public string UserName
         {
             get { return _userName; }
-            set 
+            set
             {
                 _userName = value;
                 NotifyOfPropertyChange(() => UserName);
@@ -23,18 +29,49 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
             }
         }
 
-        
+
 
         public string Password
         {
             get { return _password; }
-            set 
-               { 
+            set
+            {
                 _password = value;
                 NotifyOfPropertyChange(() => Password);
                 NotifyOfPropertyChange(() => CanLogIn);
-                }
+            }
         }
+
+        private bool _isErrorVisible;
+
+        public bool IsErrorVisible
+        {
+            get
+            {
+                bool output = false;
+                if (ErrorMessage?.Length > 0)
+                {
+                    output = true;
+                }
+                return output;
+            }
+          
+        }
+
+        private string _errorMessage;
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                NotifyOfPropertyChange(() => IsErrorVisible);
+                NotifyOfPropertyChange(() => ErrorMessage);
+            }
+        }
+
+
 
         public bool CanLogIn
         {
@@ -50,10 +87,23 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
             }
         }
 
-        public void LogIn()
+        public async Task LogIn()
         {
-            
+            try
+            {
+                 ErrorMessage = "";
+                var result = await _apiHelper.Authenticate(UserName, Password);
+            }
+            catch (Exception ex)
+            {
+
+               ErrorMessage = ex.Message;
+            }
+
+
         }
+
+
 
     }
 }
