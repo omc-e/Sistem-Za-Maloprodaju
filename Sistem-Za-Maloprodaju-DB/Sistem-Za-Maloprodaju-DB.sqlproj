@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>Sistem_Za_Maloprodaju_DB</Name>
+    <Name>Sistem-Za-Maloprodaju-DB</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{d68ea69b-d21c-41c8-893f-a35d92bab5ad}</ProjectGuid>
@@ -71,5 +71,6 @@
     <Build Include="dbo\Tables\SaleDetail.sql" />
     <Build Include="dbo\Tables\Product.sql" />
     <Build Include="dbo\Tables\Inventory.sql" />
+    <Build Include="dbo\StoredProcedures\spUserLookup.sql" />
   </ItemGroup>
 </Project>

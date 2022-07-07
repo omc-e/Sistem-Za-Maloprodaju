@@ -1,4 +1,6 @@
 ﻿using Caliburn.Micro;
+using DesktopUI.Library.API;
+using DesktopUI.Library.Models;
 using Sistem_Za_Maloprodaju_WPFUserInterface.Helpers;
 using Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels;
 using System;
@@ -37,6 +39,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface
             _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
+                .Singleton<ILoggedInUserModel, LoggedInUserModel>()
                 .Singleton<IAPIHelper,APIHelper>();
 
             //reflection

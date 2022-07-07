@@ -1,10 +1,8 @@
 ﻿using Caliburn.Micro;
-using Sistem_Za_Maloprodaju_WPFUserInterface.Helpers;
+using DesktopUI.Library.API;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
 {
@@ -55,7 +53,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
                 }
                 return output;
             }
-          
+
         }
 
         private string _errorMessage;
@@ -91,13 +89,18 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
         {
             try
             {
-                 ErrorMessage = "";
+                ErrorMessage = "";
                 var result = await _apiHelper.Authenticate(UserName, Password);
+
+                //Capture more information about user
+
+                await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
+
             }
             catch (Exception ex)
             {
 
-               ErrorMessage = ex.Message;
+                ErrorMessage = ex.Message;
             }
 
 

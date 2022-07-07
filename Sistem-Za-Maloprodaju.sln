@@ -9,6 +9,10 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Sistem-Za-Maloprodaju-DB", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sistem-Za-Maloprodaju-WPFUserInterface", "Sistem-Za-Maloprodaju-WPFUserInterface\Sistem-Za-Maloprodaju-WPFUserInterface.csproj", "{A9932A3A-C0B4-43BC-9BAC-B4BD32EC4829}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManager.Library", "DataManager.Library\DataManager.Library.csproj", "{4F8A3842-2347-4EE9-BBA5-2B2DFCA11886}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopUI.Library", "DesktopUI.Library\DesktopUI.Library.csproj", "{B6154328-052E-4362-A394-AB41438611F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,14 @@ Global
 		{A9932A3A-C0B4-43BC-9BAC-B4BD32EC4829}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9932A3A-C0B4-43BC-9BAC-B4BD32EC4829}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9932A3A-C0B4-43BC-9BAC-B4BD32EC4829}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F8A3842-2347-4EE9-BBA5-2B2DFCA11886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F8A3842-2347-4EE9-BBA5-2B2DFCA11886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F8A3842-2347-4EE9-BBA5-2B2DFCA11886}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F8A3842-2347-4EE9-BBA5-2B2DFCA11886}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6154328-052E-4362-A394-AB41438611F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6154328-052E-4362-A394-AB41438611F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6154328-052E-4362-A394-AB41438611F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6154328-052E-4362-A394-AB41438611F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

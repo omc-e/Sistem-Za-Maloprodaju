@@ -1,10 +1,13 @@
-﻿using Sistem_Za_Maloprodaju_WPFUserInterface.Models;
+﻿
+using DesktopUI.Library.Models;
 using System.Threading.Tasks;
 
-namespace Sistem_Za_Maloprodaju_WPFUserInterface.Helpers
+namespace DesktopUI.Library.API
 {
     public interface IAPIHelper
     {
         Task<AuthanticatedUser> Authenticate(string username, string password);
+
+         Task GetLoggedInUserInfo(string token);
     }
 }
