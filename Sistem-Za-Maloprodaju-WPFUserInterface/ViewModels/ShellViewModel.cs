@@ -2,23 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using Sistem_Za_Maloprodaju_WPFUserInterface.EventModels;
 
 namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
 {
-    public class ShellViewModel : Conductor<object>
+    public class ShellViewModel : Conductor<object>, IHandle<LogOnEvent>
     {
-        private LoginViewModel _loginVM;
+        
+        public IEventAggregator _events;
+        private SalesViewModel _salesVM;
+        private SimpleContainer _container;
         //Bootsrapper is sending instance through dependency injection 
         //We do not need to create object with "new LoginViewModel" 
-        public ShellViewModel(LoginViewModel loginVM)
+        public ShellViewModel( IEventAggregator events, SalesViewModel salesVM, SimpleContainer container)
         {
-            _loginVM = loginVM;
+            _events = events;
+           
+            _salesVM = salesVM;
+            _container = container;
 
-            ActivateItemAsync(_loginVM);
+            _events.SubscribeOnUIThread(this);
+
+            //ViewModel are not singletones, Instances are per request per request
+            ActivateItemAsync(_container.GetInstance<LoginViewModel>());
              
                 
         }
+
+        public Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken) => ActivateItemAsync(_salesVM);
+
+        //public void Handle(LogOnEvent message)
+        //{
+
+
+        //}
     }
 }

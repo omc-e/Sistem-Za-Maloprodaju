@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using DesktopUI.Library.API;
+using Sistem_Za_Maloprodaju_WPFUserInterface.EventModels;
 using System;
 using System.Threading.Tasks;
 
@@ -11,10 +12,12 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
         private string _userName;
         private string _password;
         private IAPIHelper _apiHelper;
+        private IEventAggregator _events;
 
-        public LoginViewModel(IAPIHelper aPIHelper)
+        public LoginViewModel(IAPIHelper aPIHelper, IEventAggregator events)
         {
             _apiHelper = aPIHelper;
+            _events = events;
         }
         public string UserName
         {
@@ -40,7 +43,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
             }
         }
 
-        private bool _isErrorVisible;
+       // private bool _isErrorVisible;
 
         public bool IsErrorVisible
         {
@@ -95,6 +98,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
                 //Capture more information about user
 
                 await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
+                await _events.PublishOnUIThreadAsync(new LogOnEvent());
 
             }
             catch (Exception ex)

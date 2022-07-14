@@ -33,7 +33,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface
 
             //based in calibrum micro
             //Window manager
-            //EventAggergator, passing event messager through eventAggregator
+            //EventAggergator, passing event messages  through eventAggregator
             //Singleton creating one instance for scope of this container
 
             _container
