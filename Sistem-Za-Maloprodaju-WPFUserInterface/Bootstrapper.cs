@@ -13,7 +13,7 @@ using System.Windows.Controls;
 
 namespace Sistem_Za_Maloprodaju_WPFUserInterface
 {
-    //Calibrium.Micro Bootsrapper class
+    //Caliburn.Micro Bootsrapper class
     public class Bootstrapper : BootstrapperBase 
     {
         //Simple container object to hold dependency mapping for use later in an app via Dependency Injection

@@ -11,7 +11,6 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
     public class SalesViewModel : Screen
     {
         private BindingList<string> _products;
-
         public BindingList<string> Products
         {
             get { return _products; }
