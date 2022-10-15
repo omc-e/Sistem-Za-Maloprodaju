@@ -1,4 +1,6 @@
 ﻿using Caliburn.Micro;
+using DesktopUI.Library.API;
+using DesktopUI.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,8 +12,24 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
 {
     public class SalesViewModel : Screen
     {
-        private BindingList<string> _products;
-        public BindingList<string> Products
+        IProductEndPoint _productEndPoint;
+        public  SalesViewModel(IProductEndPoint productEndPoint)
+        {
+            _productEndPoint = productEndPoint;      
+        }
+        protected override async void OnViewLoaded(object view)
+        {
+            base.OnViewLoaded(view);
+            await LoadProducs();
+        }
+        private async Task LoadProducs()
+        {
+            var productList = await _productEndPoint.GetAll();
+            Products = new BindingList<ProductModel>(productList);
+        }
+
+        private BindingList<ProductModel> _products;
+        public BindingList<ProductModel> Products
         {
             get { return _products; }
             set { _products = value; 
@@ -57,9 +75,9 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
         }
 
 
-        private BindingList<string> _cart;
+        private BindingList<ProductModel> _cart;
 
-        public  BindingList<string> Cart
+        public  BindingList<ProductModel> Cart
         {
             get { return _cart; }
             set { _cart = value;

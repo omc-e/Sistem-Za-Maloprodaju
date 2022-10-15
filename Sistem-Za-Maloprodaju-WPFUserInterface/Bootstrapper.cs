@@ -29,7 +29,8 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface
 
         protected override void Configure()
         {
-            _container.Instance(_container);
+            _container.Instance(_container)
+                .PerRequest<IProductEndPoint, ProductEndPoint>();
 
             //based in calibrum micro
             //Window manager
