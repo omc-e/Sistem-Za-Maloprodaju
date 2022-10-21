@@ -24,5 +24,10 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.Views
         {
             InitializeComponent();
         }
+
+        private void Cart_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
