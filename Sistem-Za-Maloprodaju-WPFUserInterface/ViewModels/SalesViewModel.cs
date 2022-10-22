@@ -69,22 +69,42 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
         public string  SubTotal
         {
             get {
-                decimal subTotal = 0;
-                foreach (var item in Cart)
-                {
-                    subTotal += (item.Product.RetailPrice * item.QuantityInCart);
-                }
+                decimal subTotal = CalculateSubTotal();
+                
                 return subTotal.ToString("C", CultureInfo.CurrentCulture);
             }
             
+        }
+
+        private decimal CalculateSubTotal()
+        {
+            decimal subTotal = 0;
+            foreach (var item in Cart)
+            {
+                subTotal += (item.Product.RetailPrice * item.QuantityInCart);
+            }
+
+            return subTotal;
+        }
+        private decimal CalculateTax()
+        {
+            decimal taxAmount = 0;
+            double a = 0.17;
+            decimal tempTax = (decimal)a;
+            foreach (var item in Cart)
+            {
+                taxAmount += (item.Product.RetailPrice * item.QuantityInCart * tempTax);
+            }
+            return taxAmount;
         }
 
         public string Tax
         {
             get
             {
-                
-                return "$0.00";
+                decimal taxAmount = CalculateTax();
+
+                return taxAmount.ToString("C");
             }
 
         }
@@ -92,7 +112,8 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
         {
             get
             {
-                return "$0.00";
+                decimal total = CalculateSubTotal() + CalculateTax();
+                return total.ToString("C");
             }
 
         }
@@ -148,6 +169,8 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
             SelectedProduct.QuantityInStock -= ItemQuantity;
             ItemQuantity = 1;
             NotifyOfPropertyChange(() => SubTotal);
+            NotifyOfPropertyChange(() => Tax);
+            NotifyOfPropertyChange(() => Total);
             NotifyOfPropertyChange(() => existingItem.DisplayText);
             
         }
@@ -168,6 +191,8 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
         public void RemoveFromCart()
         {
             NotifyOfPropertyChange(() => SubTotal);
+            NotifyOfPropertyChange(() => Tax);
+            NotifyOfPropertyChange(() => Total);
         }
 
         public bool CanCheckOut
