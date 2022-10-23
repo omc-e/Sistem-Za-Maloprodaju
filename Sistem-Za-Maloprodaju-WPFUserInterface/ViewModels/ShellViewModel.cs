@@ -17,17 +17,17 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
         private SimpleContainer _container;
         //Bootsrapper is sending instance through dependency injection 
         //We do not need to create object with "new LoginViewModel" 
-        public ShellViewModel( IEventAggregator events, SalesViewModel salesVM, SimpleContainer container)
+        public ShellViewModel( IEventAggregator events, SalesViewModel salesVM)
         {
             _events = events;
            
             _salesVM = salesVM;
-            _container = container;
+            
 
             _events.SubscribeOnUIThread(this);
 
-            //ViewModel are not singletones, Instances are per request per request
-            ActivateItemAsync(_container.GetInstance<LoginViewModel>());
+            //IoC allows us to get instance through the cotainer 
+            ActivateItemAsync(IoC.Get<LoginViewModel>());
              
                 
         }
