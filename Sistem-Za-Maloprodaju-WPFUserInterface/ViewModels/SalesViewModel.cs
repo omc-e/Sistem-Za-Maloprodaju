@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -79,10 +80,11 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
         private decimal CalculateSubTotal()
         {
             decimal subTotal = 0;
-            foreach (var item in Cart)
-            {
-                subTotal += (item.Product.RetailPrice * item.QuantityInCart);
-            }
+            subTotal = Cart.Sum(x => x.QuantityInCart * x.Product.RetailPrice);
+            //foreach (var item in Cart)
+            //{
+            //    subTotal += (item.Product.RetailPrice * item.QuantityInCart);
+            //}
 
             return subTotal;
         }
@@ -91,10 +93,12 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
             decimal taxAmount = 0;
             double a = 0.17;
             decimal tempTax = (decimal)a;
-            foreach (var item in Cart)
-            {
-                taxAmount += (item.Product.RetailPrice * item.QuantityInCart * tempTax);
-            }
+
+        taxAmount = Cart.Sum(x => x.Product.RetailPrice * x.QuantityInCart * tempTax);
+            //foreach (var item in Cart)
+            //{
+            //    taxAmount += (item.Product.RetailPrice * item.QuantityInCart * tempTax);
+            //}
             return taxAmount;
         }
 
