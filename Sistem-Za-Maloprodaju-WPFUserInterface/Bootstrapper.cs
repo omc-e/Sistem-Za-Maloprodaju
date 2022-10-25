@@ -30,7 +30,9 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface
         protected override void Configure()
         {
             _container.Instance(_container)
-                .PerRequest<IProductEndPoint, ProductEndPoint>();
+                .PerRequest<IProductEndPoint, ProductEndPoint>()
+                .PerRequest<ISaleEndpoint, SaleEndpoint>();
+                
 
             //based in calibrum micro
             //Window manager
@@ -41,6 +43,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
                 .Singleton<ILoggedInUserModel, LoggedInUserModel>()
+
                 .Singleton<IAPIHelper,APIHelper>();
 
             //reflection

@@ -15,9 +15,13 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
     public class SalesViewModel : Screen
     {
         IProductEndPoint _productEndPoint;
-        public  SalesViewModel(IProductEndPoint productEndPoint)
+        ISaleEndpoint _saleEndpoint;
+       
+        public  SalesViewModel(IProductEndPoint productEndPoint, ISaleEndpoint saleEndpoint)
         {
-            _productEndPoint = productEndPoint;      
+            _productEndPoint = productEndPoint;  
+            _saleEndpoint = saleEndpoint;
+          
         }
         protected override async void OnViewLoaded(object view)
         {
@@ -176,7 +180,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
             NotifyOfPropertyChange(() => existingItem.DisplayText);
-            
+            NotifyOfPropertyChange(() => CanCheckOut);
         }
 
         public bool CanRemoveFromCart
@@ -197,6 +201,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
             NotifyOfPropertyChange(() => SubTotal);
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
+            NotifyOfPropertyChange(() => CanCheckOut);
         }
 
         public bool CanCheckOut
@@ -205,19 +210,35 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
             {
                 bool output = false;
 
-                //Make there is something in the cart
+                //Make sure there is something in the cart
+                if (Cart.Count > 0)
+                {
+                    output = true;
+                }
 
 
                 return output;
             }
         }
 
-        public void CheckOut()
+        public async Task CheckOut()
         {
+            SaleModel sale = new SaleModel();
 
+            foreach (var item in Cart)
+            {
+                sale.SaleDetails.Add(new SaleDetailModel
+                {
+                    ProductId = item.Product.Id,
+                    Quantity = item.QuantityInCart
+                });
+                
+
+            }
+
+            await _saleEndpoint.PostSale(sale);
         }
-
-
+        
 
     }
 }
