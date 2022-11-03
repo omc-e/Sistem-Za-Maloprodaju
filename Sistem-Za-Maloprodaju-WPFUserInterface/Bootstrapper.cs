@@ -28,8 +28,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface
             ConventionManager.AddElementConvention<PasswordBox>(PasswordBoxHelper.BoundPasswordProperty, "Password", "PasswordChanged");
 
         }
-
-        protected override void Configure()
+        private IMapper ConfigureAutomapper()
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -37,9 +36,15 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface
                 cfg.CreateMap<CartItemModel, CartItemDisplayModel>();
             });
 
-            var mapper = config.CreateMapper();
+            var output = config.CreateMapper();
+            return output;
+        }
 
-            _container.Instance(mapper);
+        protected override void Configure()
+        {
+           
+
+            _container.Instance(ConfigureAutomapper());
 
             _container.Instance(_container)
                 .PerRequest<IProductEndPoint, ProductEndPoint>()

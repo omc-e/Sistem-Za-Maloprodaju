@@ -71,7 +71,7 @@
         <TextBlock Text="Cart" Grid.Column="3" Grid.Row="1"/>
         <ListBox x:Name="Cart" Grid.Row="2" Grid.Column="3"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 MinWidth="150" MinHeight="200" SelectionChanged="Cart_SelectionChanged">
+                 MinWidth="150" MinHeight="200" SelectedItem ="{Binding SelectedCartItem}" SelectionChanged="Cart_SelectionChanged">
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
