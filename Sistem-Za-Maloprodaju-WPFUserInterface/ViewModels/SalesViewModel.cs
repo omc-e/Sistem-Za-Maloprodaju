@@ -1,6 +1,8 @@
-﻿using Caliburn.Micro;
+﻿using AutoMapper;
+using Caliburn.Micro;
 using DesktopUI.Library.API;
 using DesktopUI.Library.Models;
+using Sistem_Za_Maloprodaju_WPFUserInterface.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,11 +18,12 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
     {
         IProductEndPoint _productEndPoint;
         ISaleEndpoint _saleEndpoint;
-       
-        public  SalesViewModel(IProductEndPoint productEndPoint, ISaleEndpoint saleEndpoint)
+        IMapper _mapper;
+        public  SalesViewModel(IProductEndPoint productEndPoint, ISaleEndpoint saleEndpoint, IMapper mapper)
         {
             _productEndPoint = productEndPoint;  
             _saleEndpoint = saleEndpoint;
+            _mapper = mapper;
           
         }
         protected override async void OnViewLoaded(object view)
@@ -31,11 +34,12 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
         private async Task LoadProducs()
         {
             var productList = await _productEndPoint.GetAll();
-            Products = new BindingList<ProductModel>(productList);
+            var products = _mapper.Map<List<ProductDisplayModel>>(productList);
+            Products = new BindingList<ProductDisplayModel>(products);
         }
 
-        private BindingList<ProductModel> _products;
-        public BindingList<ProductModel> Products
+        private BindingList<ProductDisplayModel> _products;
+        public BindingList<ProductDisplayModel> Products
         {
             get { return _products; }
             set { _products = value; 
@@ -43,9 +47,9 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
             }
         }
 
-        private ProductModel _selectedProduct;
+        private ProductDisplayModel _selectedProduct;
 
-        public ProductModel SelectedProduct
+        public ProductDisplayModel SelectedProduct
         {
             get { return _selectedProduct; }
             set { 
@@ -127,9 +131,9 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
         }
 
 
-        private BindingList<CartItemModel> _cart = new BindingList<CartItemModel>() ;
+        private BindingList<CartItemDisplayModel> _cart = new BindingList<CartItemDisplayModel>() ;
 
-        public  BindingList<CartItemModel> Cart
+        public  BindingList<CartItemDisplayModel> Cart
         {
             get { return _cart; }
             set { _cart = value;
@@ -158,16 +162,16 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
 
         public void AddToCart()
         {
-            CartItemModel existingItem = Cart.FirstOrDefault(x => x.Product == SelectedProduct);
+            CartItemDisplayModel existingItem = Cart.FirstOrDefault(x => x.Product == SelectedProduct);
             if (existingItem != null)
             {
                 existingItem.QuantityInCart += ItemQuantity;
-                Cart.Remove(existingItem);
-                Cart.Add(existingItem);
+              
+
             }
             else
             {
-                CartItemModel item = new CartItemModel
+                CartItemDisplayModel item = new CartItemDisplayModel
                 {
                     Product = SelectedProduct,
                     QuantityInCart = ItemQuantity

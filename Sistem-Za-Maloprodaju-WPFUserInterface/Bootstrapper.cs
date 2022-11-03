@@ -1,7 +1,9 @@
-﻿using Caliburn.Micro;
+﻿using AutoMapper;
+using Caliburn.Micro;
 using DesktopUI.Library.API;
 using DesktopUI.Library.Models;
 using Sistem_Za_Maloprodaju_WPFUserInterface.Helpers;
+using Sistem_Za_Maloprodaju_WPFUserInterface.Models;
 using Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -29,6 +31,16 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface
 
         protected override void Configure()
         {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductModel, ProductDisplayModel>();
+                cfg.CreateMap<CartItemModel, CartItemDisplayModel>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            _container.Instance(mapper);
+
             _container.Instance(_container)
                 .PerRequest<IProductEndPoint, ProductEndPoint>()
                 .PerRequest<ISaleEndpoint, SaleEndpoint>();
