@@ -15,7 +15,15 @@ namespace DesktopUI.Library.Models
         public DateTime CreatedDate { get; set; }
         public string EmailAddress { get; set; }
 
-
+        public void LogOffUSer()
+        {
+            Token = "";
+            UserId = "";
+            FirstName = "";
+            LastName = "";
+            EmailAddress = "";
+            CreatedDate = DateTime.MinValue;
+        }
 
     }
 }

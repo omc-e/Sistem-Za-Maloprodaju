@@ -141,6 +141,17 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
 
         }
 
+        private async Task ResetSalesViewModel()
+        {
+            Cart = new BindingList<CartItemDisplayModel>();
+            await LoadProducs();
+            NotifyOfPropertyChange(() => SubTotal);
+            NotifyOfPropertyChange(() => Tax);
+            NotifyOfPropertyChange(() => Total);
+          
+            NotifyOfPropertyChange(() => CanCheckOut);
+
+        }
 
         private BindingList<CartItemDisplayModel> _cart = new BindingList<CartItemDisplayModel>() ;
 
@@ -205,7 +216,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
                 bool output = false;
 
                 //Make sure something is selected
-                if (SelectedCartItem != null && SelectedCartItem?.Product.QuantityInStock > 0)
+                if (SelectedCartItem != null && SelectedCartItem?.QuantityInCart > 0)
                 {
                     output = true;
                 }
@@ -234,6 +245,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
             NotifyOfPropertyChange(() => CanCheckOut);
+            NotifyOfPropertyChange(() => CanAddToCart);  
         }
 
         public bool CanCheckOut
@@ -269,6 +281,8 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
             }
 
             await _saleEndpoint.PostSale(sale);
+
+            await ResetSalesViewModel();
         }
         
 

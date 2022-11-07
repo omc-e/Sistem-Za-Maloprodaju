@@ -10,5 +10,7 @@ namespace DesktopUI.Library.Models
         string LastName { get; set; }
         string Token { get; set; }
         string UserId { get; set; }
+
+        void LogOffUSer();
     }
 }
