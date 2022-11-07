@@ -45,17 +45,38 @@ namespace DataManager.Library.DataAccess
             };
             sale.Total = sale.SubTotal + sale.Tax;
 
-            SQLDataAccess sql = new SQLDataAccess();
-            sql.SaveData("dbo.spSale_Insert", sale, "Sistem-Za-Maloprodaju-DB");
+            
 
-            //Get the ID from the sale model
-          sale.Id =  sql.LoadData<int, dynamic>("spSale_Lookup",new { sale.CashierId, sale.SaleDate } , "Sistem-Za-Maloprodaju-DB").FirstOrDefault();
-
-            foreach (var item in details)
+            using(SQLDataAccess sql = new SQLDataAccess())
             {
-                item.SaleId = sale.Id;
-            sql.SaveData("dbo.spSaleDetail_Insert", item, "Sistem-Za-Maloprodaju-DB");
+                try
+                {
+                    sql.StartTransaction("Sistem-Za-Maloprodaju-DB");
+
+
+                    sql.SaveDataInTransaction("dbo.spSale_Insert", sale);
+
+                    
+
+                    //Get the ID from the sale model
+                    sale.Id = sql.LoadDataInTransaction<int, dynamic>("spSale_Lookup", new { sale.CashierId, sale.SaleDate }).FirstOrDefault();
+
+                    foreach (var item in details)
+                    {
+                        item.SaleId = sale.Id;
+                        sql.SaveDataInTransaction("dbo.spSaleDetail_Insert", item);
+                    }
+                    //sql.CommitTransaction();
+                }
+                catch
+                {
+
+                    sql.RollbackTransaction();
+                    throw;
+                }
             }
+
+          
 
         }
 
