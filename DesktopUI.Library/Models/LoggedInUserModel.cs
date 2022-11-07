@@ -15,7 +15,7 @@ namespace DesktopUI.Library.Models
         public DateTime CreatedDate { get; set; }
         public string EmailAddress { get; set; }
 
-        public void LogOffUSer()
+        public void ResetUser()
         {
             Token = "";
             UserId = "";

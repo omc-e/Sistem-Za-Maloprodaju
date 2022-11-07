@@ -11,6 +11,6 @@ namespace DesktopUI.Library.Models
         string Token { get; set; }
         string UserId { get; set; }
 
-        void LogOffUSer();
+        void ResetUser();
     }
 }
