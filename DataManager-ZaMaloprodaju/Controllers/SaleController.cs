@@ -23,6 +23,14 @@ namespace DataManager_ZaMaloprodaju.Controllers
 
         }
 
+        [Route("GetSalesReport")]
+        public List<SaleReportModel> GetSalesReport()
+        {
+            SaleData data = new SaleData();
+
+            return data.GetSaleReport();
+        }
+
        
     }
 }
