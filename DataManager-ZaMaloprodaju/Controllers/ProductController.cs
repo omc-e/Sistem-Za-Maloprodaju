@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace DataManager_ZaMaloprodaju.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Cashier, Manager, Admin")]
     public class ProductController : ApiController
     {
         public List<ProductModel> Get()
