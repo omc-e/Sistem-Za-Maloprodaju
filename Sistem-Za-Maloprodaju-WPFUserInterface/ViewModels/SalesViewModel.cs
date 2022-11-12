@@ -4,13 +4,16 @@ using DesktopUI.Library.API;
 using DesktopUI.Library.Models;
 using Sistem_Za_Maloprodaju_WPFUserInterface.Models;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Dynamic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
 {
@@ -19,17 +22,48 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
         IProductEndPoint _productEndPoint;
         ISaleEndpoint _saleEndpoint;
         IMapper _mapper;
-        public  SalesViewModel(IProductEndPoint productEndPoint, ISaleEndpoint saleEndpoint, IMapper mapper)
+        StatusInfoViewModel _status;
+         IWindowManager _window;
+
+        public  SalesViewModel(IProductEndPoint productEndPoint, ISaleEndpoint saleEndpoint, IMapper mapper, StatusInfoViewModel status,
+            IWindowManager window)
         {
             _productEndPoint = productEndPoint;  
             _saleEndpoint = saleEndpoint;
             _mapper = mapper;
-          
+            _status = status;
+            _window = window;
         }
         protected override async void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
-            await LoadProducs();
+            try
+            {
+                await LoadProducs();
+            }
+            catch(Exception ex)
+            {
+
+                dynamic settings = new ExpandoObject();
+                settings.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                settings.ResizeMode = ResizeMode.NoResize;
+                settings.Title = "System Error";
+
+                //var info = IoC.Get<StatusInfoViewModel>();
+
+                if(ex.Message == "Unauthorized")
+                {
+                    _status.UpdateMessage("Unauthorized Access", "You do not have permission to interact with the Sales Form");
+                    await _window.ShowDialogAsync(_status, null, settings);
+                }
+                else
+                {
+                    _status.UpdateMessage("Fatal Exceptiom", ex.Message);
+                    await _window.ShowDialogAsync(_status, null, settings);
+                }
+                
+               await TryCloseAsync();
+            }
         }
         private async Task LoadProducs()
         {
