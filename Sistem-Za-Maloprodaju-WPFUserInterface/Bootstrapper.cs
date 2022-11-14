@@ -48,6 +48,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface
 
             _container.Instance(_container)
                 .PerRequest<IProductEndPoint, ProductEndPoint>()
+                .PerRequest<IUserEndPoint, UserEndPoint>()
                 .PerRequest<ISaleEndpoint, SaleEndpoint>();
                 
 

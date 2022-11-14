@@ -62,6 +62,11 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
             NotifyOfPropertyChange(() => IsAccountVisible);
         }
 
+        public void UserManagement()
+        {
+            ActivateItemAsync(IoC.Get<UserDisplayViewModel>());
+        }
+
         //TODO
         //ADD NOTIFYONPROPERTYCHANGE IN TASK 
         public Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken) => ActivateItemAsync(_salesVM); 
