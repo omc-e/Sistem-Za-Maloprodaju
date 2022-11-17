@@ -18,11 +18,13 @@ namespace DataManager_Api.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IConfiguration _config;
 
-        public UserController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public UserController(ApplicationDbContext context, UserManager<IdentityUser> userManager, IConfiguration config)
         {
             _context = context;
             _userManager = userManager;
+            _config = config;
         }
         [HttpGet]
         // GET: User/Details/5
@@ -33,7 +35,7 @@ namespace DataManager_Api.Controllers
 
             //Using library model, not api model
             //Because api model is for display
-            UserData data = new UserData();
+            UserData data = new UserData(_config);
 
             return data.GetUserById(userID).First();
 

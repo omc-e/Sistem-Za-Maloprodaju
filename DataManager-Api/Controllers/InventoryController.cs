@@ -11,11 +11,17 @@ namespace DataManager_Api.Controllers
     [ApiController]
     public class InventoryController : ControllerBase
     {
+        private IConfiguration _config;
+
+        public InventoryController(IConfiguration config)
+        {
+            _config = config;
+        }
         
             [Authorize(Roles = "Manager,Admin")]
             public List<InventoryModel> Get()
             {
-                InventoryData data = new InventoryData();
+                InventoryData data = new InventoryData(_config);
 
                 return data.GetInventory();
             }
@@ -23,7 +29,7 @@ namespace DataManager_Api.Controllers
             [Authorize(Roles = "Admin")]
             public void Post(InventoryModel item)
             {
-                InventoryData data = new InventoryData();
+                InventoryData data = new InventoryData(_config);
                 data.SaveInventoryRecord(item);
             }
         }

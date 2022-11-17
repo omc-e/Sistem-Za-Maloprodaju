@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,10 +13,18 @@ namespace DataManager.Library.Internal.DataAccess
 {
     internal class SQLDataAccess : IDisposable
     {
+        public SQLDataAccess(IConfiguration config)
+        {
+            _config = config;
+        }
 
         public string GetConnectionString (string name)
         {
-            return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+            
+
+            //return @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Sistem-Za-Maloprodaju;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+           // return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+            return _config.GetConnectionString(name);
         }
 
          public List<T> LoadData <T, U>(string storedProcedure, U parameters, string connectionStringName)
@@ -73,6 +82,8 @@ namespace DataManager.Library.Internal.DataAccess
             
         }
         private bool isClosed = false;
+        private IConfiguration _config;
+
         public void CommitTransaction()
         {
             _transaction?.Commit();
