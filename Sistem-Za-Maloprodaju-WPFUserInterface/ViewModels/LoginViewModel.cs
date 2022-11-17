@@ -10,7 +10,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
     public class LoginViewModel : Screen
     {
         private string _userName = "emsar.omic@outlook.com";
-        private string _password = "Emsar123";
+        private string _password = "Emsar12345!";
         private IAPIHelper _apiHelper;
         private IEventAggregator _events;
 

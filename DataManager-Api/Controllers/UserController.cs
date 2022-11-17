@@ -27,8 +27,7 @@ namespace DataManager_Api.Controllers
             _config = config;
         }
         [HttpGet]
-        // GET: User/Details/5
-        //Security: Only logged user information can be given back
+       
         public UserModel GetById()
         {
             string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -43,7 +42,7 @@ namespace DataManager_Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        [Route("api/User/Admin/GetAllUsers")]
+        [Route("Admin/GetAllUsers")]
         public List<ApplicationUserModel> GetAllUsers()
         {
             List<ApplicationUserModel> output = new List<ApplicationUserModel>();
@@ -78,7 +77,7 @@ namespace DataManager_Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        [Route("api/User/Admin/GetAllRoles")]
+        [Route("Admin/GetAllRoles")]
         public Dictionary<string, string> GetAllRoles()
         {
             
@@ -91,7 +90,7 @@ namespace DataManager_Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        [Route("api/User/Admin/AddRole")]
+        [Route("Admin/AddRole")]
         public async Task AddARole(UserRolePairModel pairing)
         {
 
@@ -103,7 +102,7 @@ namespace DataManager_Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        [Route("api/User/Admin/RemoveRole")]
+        [Route("Admin/RemoveRole")]
         public async Task RemoveARole(UserRolePairModel pairing)
         {
             var user = await _userManager.FindByIdAsync(pairing.UserId);
