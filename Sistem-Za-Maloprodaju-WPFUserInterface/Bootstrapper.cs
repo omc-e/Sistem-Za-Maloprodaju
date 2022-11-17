@@ -3,8 +3,8 @@ using Caliburn.Micro;
 using DesktopUI.Library.API;
 using DesktopUI.Library.Models;
 using Sistem_Za_Maloprodaju_WPFUserInterface.Helpers;
-using Sistem_Za_Maloprodaju_WPFUserInterface.Models;
-using Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels;
+using DesktopUI.Models;
+using DesktopUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,7 +81,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            DisplayRootViewFor<ShellViewModel>();
+            DisplayRootViewForAsync<ShellViewModel>();
         }
 
         protected override object GetInstance(Type service, string key)

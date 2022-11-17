@@ -1,7 +1,8 @@
 ﻿using Caliburn.Micro;
 using DesktopUI.Library.API;
 using DesktopUI.Library.Models;
-using Sistem_Za_Maloprodaju_WPFUserInterface.Models;
+using DesktopUI.ViewModels;
+using Sistem_Za_Maloprodaju_WPFUserInterface;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
+namespace DesktopUI.ViewModels
 {
     public class UserDisplayViewModel : Screen
     {
@@ -144,7 +145,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
                     await _window.ShowDialogAsync(_status, null, settings);
                 }
 
-                await TryCloseAsync();
+                 TryCloseAsync();
             }
         }
         private async Task LoadUsers()

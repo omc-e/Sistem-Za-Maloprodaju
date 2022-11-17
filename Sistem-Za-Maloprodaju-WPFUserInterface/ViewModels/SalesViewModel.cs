@@ -2,7 +2,7 @@
 using Caliburn.Micro;
 using DesktopUI.Library.API;
 using DesktopUI.Library.Models;
-using Sistem_Za_Maloprodaju_WPFUserInterface.Models;
+using DesktopUI;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -14,8 +14,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using DesktopUI.Models;
 
-namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
+namespace DesktopUI.ViewModels
 {
     public class SalesViewModel : Screen
     {
@@ -62,7 +63,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
                     await _window.ShowDialogAsync(_status, null, settings);
                 }
                 
-               await TryCloseAsync();
+                TryCloseAsync();
             }
         }
         private async Task LoadProducs()

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Sistem_Za_Maloprodaju_WPFUserInterface.Views
+namespace DesktopUI.Views
 {
     /// <summary>
     /// Interaction logic for SalesView.xaml

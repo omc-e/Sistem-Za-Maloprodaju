@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManager-ZaMaloprodaju",
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Sistem-Za-Maloprodaju-DB", "Sistem-Za-Maloprodaju-DB\Sistem-Za-Maloprodaju-DB.sqlproj", "{D68EA69B-D21C-41C8-893F-A35D92BAB5AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sistem-Za-Maloprodaju-WPFUserInterface", "Sistem-Za-Maloprodaju-WPFUserInterface\Sistem-Za-Maloprodaju-WPFUserInterface.csproj", "{A9932A3A-C0B4-43BC-9BAC-B4BD32EC4829}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI", "Sistem-Za-Maloprodaju-WPFUserInterface\DesktopUI.csproj", "{A9932A3A-C0B4-43BC-9BAC-B4BD32EC4829}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataManager.Library", "DataManager.Library\DataManager.Library.csproj", "{4F8A3842-2347-4EE9-BBA5-2B2DFCA11886}"
 EndProject
@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{D4D38703-BEC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{95C6453E-B5DF-4500-A6AD-C10AFFDFA62E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManager-Api", "DataManager-Api\DataManager-Api.csproj", "{4FF9A15F-3EBA-4981-BDB0-24B3B6F2B748}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataManager-Api", "DataManager-Api\DataManager-Api.csproj", "{4FF9A15F-3EBA-4981-BDB0-24B3B6F2B748}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

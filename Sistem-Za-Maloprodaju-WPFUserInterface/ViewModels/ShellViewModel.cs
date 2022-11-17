@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using DesktopUI.Library.API;
 using DesktopUI.Library.Models;
+using DesktopUI.ViewModels;
 using Sistem_Za_Maloprodaju_WPFUserInterface.EventModels;
 
-namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
+namespace DesktopUI.ViewModels
 {
     public class ShellViewModel : Conductor<object>, IHandle<LogOnEvent>
     {
@@ -32,7 +33,7 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
             _events.SubscribeOnUIThread(this);
 
             //IoC allows us to get instance through the cotainer 
-            ActivateItemAsync(IoC.Get<LoginViewModel>());
+            ActivateItemAsync(IoC.Get<LoginViewModel>(), new CancellationToken());
 
 
         }
@@ -54,22 +55,26 @@ namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
             TryCloseAsync();
         }
 
-        public void LogOut()
+        public async Task LogOut()
         {
             _user.ResetUser();
             _apiHelper.LogOffUser();
-            ActivateItemAsync(IoC.Get<LoginViewModel>());
+           await ActivateItemAsync(IoC.Get<LoginViewModel>(),new CancellationToken());
             NotifyOfPropertyChange(() => IsAccountVisible);
         }
 
-        public void UserManagement()
+        public async Task UserManagement()
         {
-            ActivateItemAsync(IoC.Get<UserDisplayViewModel>());
+            await ActivateItemAsync(IoC.Get<UserDisplayViewModel>(), new CancellationToken());
         }
 
         //TODO
         //ADD NOTIFYONPROPERTYCHANGE IN TASK 
-        public Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken) => ActivateItemAsync(_salesVM); 
+        public async Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
+        {
+            await ActivateItemAsync(_salesVM, cancellationToken);
+            NotifyOfPropertyChange(() => IsAccountVisible);
+        } 
              
         
         

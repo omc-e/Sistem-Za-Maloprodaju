@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sistem_Za_Maloprodaju_WPFUserInterface.ViewModels
+namespace DesktopUI.ViewModels
 {
     public class StatusInfoViewModel : Screen
     {

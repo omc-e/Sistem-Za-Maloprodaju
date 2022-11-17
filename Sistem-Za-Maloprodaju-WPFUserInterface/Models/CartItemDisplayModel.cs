@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sistem_Za_Maloprodaju_WPFUserInterface.Models
+namespace DesktopUI.Models
 {
     public class CartItemDisplayModel : INotifyPropertyChanged
     {
