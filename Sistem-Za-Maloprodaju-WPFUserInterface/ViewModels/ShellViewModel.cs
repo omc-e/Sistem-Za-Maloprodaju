@@ -16,17 +16,20 @@ namespace DesktopUI.ViewModels
     {
 
         public IEventAggregator _events;
-        private SalesViewModel _salesVM;
+       
         private SimpleContainer _container;
         private ILoggedInUserModel _user;
         private IAPIHelper _apiHelper;
         //Bootsrapper is sending instance through dependency injection 
         //We do not need to create object with "new LoginViewModel" 
-        public ShellViewModel(IEventAggregator events, SalesViewModel salesVM, ILoggedInUserModel user, IAPIHelper apiHelper)
+        public ShellViewModel(IEventAggregator events,
+                             
+                              ILoggedInUserModel user,
+                              IAPIHelper apiHelper)
         {
             _events = events;
             _user = user;
-            _salesVM = salesVM;
+            
             _apiHelper = apiHelper;
 
 
@@ -72,7 +75,7 @@ namespace DesktopUI.ViewModels
         //ADD NOTIFYONPROPERTYCHANGE IN TASK 
         public async Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
         {
-            await ActivateItemAsync(_salesVM, cancellationToken);
+            await ActivateItemAsync(IoC.Get<SalesViewModel>(), cancellationToken);
             NotifyOfPropertyChange(() => IsAccountVisible);
         } 
              
