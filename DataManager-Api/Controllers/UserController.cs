@@ -20,12 +20,14 @@ namespace DataManager_Api.Controllers
         private readonly UserManager<IdentityUser> _userManager;
       
         private readonly IUserData _userData;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(ApplicationDbContext context, UserManager<IdentityUser> userManager,  IUserData userData)
+        public UserController(ApplicationDbContext context, UserManager<IdentityUser> userManager,  IUserData userData, ILogger<UserController> logger)
         {
             _context = context;
             _userManager = userManager; 
             _userData = userData;
+            _logger = logger;
         }
         [HttpGet]
        
@@ -85,9 +87,13 @@ namespace DataManager_Api.Controllers
         [Route("Admin/AddRole")]
         public async Task AddARole(UserRolePairModel pairing)
         {
-
+            string loggedInuserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
 
             var user = await _userManager.FindByIdAsync(pairing.UserId);
+
+            _logger.LogInformation("Admin {Admin} added user {User} to role {Role}", loggedInuserId, user.Id, pairing.RoleName);
+
              await   _userManager.AddToRoleAsync(user, pairing.RoleName);
             
         }
@@ -97,7 +103,11 @@ namespace DataManager_Api.Controllers
         [Route("Admin/RemoveRole")]
         public async Task RemoveARole(UserRolePairModel pairing)
         {
+            string loggedInuserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _userManager.FindByIdAsync(pairing.UserId);
+
+
+            _logger.LogInformation("Admin {Admin} remove user {User} from role {Role}", loggedInuserId, user.Id, pairing.RoleName);
             await _userManager.RemoveFromRoleAsync(user, pairing.RoleName);
         }
     }

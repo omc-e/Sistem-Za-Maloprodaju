@@ -71,8 +71,7 @@ namespace DesktopUI.ViewModels
             await ActivateItemAsync(IoC.Get<UserDisplayViewModel>(), new CancellationToken());
         }
 
-        //TODO
-        //ADD NOTIFYONPROPERTYCHANGE IN TASK 
+        
         public async Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
         {
             await ActivateItemAsync(IoC.Get<SalesViewModel>(), cancellationToken);

@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,9 +14,10 @@ namespace DataManager.Library.Internal.DataAccess
 {
     public class SQLDataAccess : IDisposable, ISQLDataAccess
     {
-        public SQLDataAccess(IConfiguration config)
+        public SQLDataAccess(IConfiguration config, ILogger<SQLDataAccess> logger)
         {
             _config = config;
+            _logger = logger;
         }
 
         public string GetConnectionString(string name)
@@ -83,6 +85,7 @@ namespace DataManager.Library.Internal.DataAccess
         }
         private bool isClosed = false;
         private IConfiguration _config;
+        private readonly ILogger<SQLDataAccess> _logger;
 
         public void CommitTransaction()
         {
@@ -108,9 +111,9 @@ namespace DataManager.Library.Internal.DataAccess
                 {
                     CommitTransaction();
                 }
-                catch
+                catch(Exception ex)
                 {
-
+                    _logger.LogError(ex, "Commit transaction failed in he dispose method.");
 
                 }
 
