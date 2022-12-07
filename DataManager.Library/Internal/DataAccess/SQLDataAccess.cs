@@ -11,35 +11,35 @@ using System.Threading.Tasks;
 
 namespace DataManager.Library.Internal.DataAccess
 {
-    internal class SQLDataAccess : IDisposable
+    public class SQLDataAccess : IDisposable, ISQLDataAccess
     {
         public SQLDataAccess(IConfiguration config)
         {
             _config = config;
         }
 
-        public string GetConnectionString (string name)
+        public string GetConnectionString(string name)
         {
-            
+
 
             //return @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Sistem-Za-Maloprodaju;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-           // return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+            // return ConfigurationManager.ConnectionStrings[name].ConnectionString;
             return _config.GetConnectionString(name);
         }
 
-         public List<T> LoadData <T, U>(string storedProcedure, U parameters, string connectionStringName)
+        public List<T> LoadData<T, U>(string storedProcedure, U parameters, string connectionStringName)
         {
             string connectionString = GetConnectionString(connectionStringName);
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                List<T> rows = connection.Query<T> (storedProcedure, parameters,
-                    commandType: CommandType.StoredProcedure).ToList ();
+                List<T> rows = connection.Query<T>(storedProcedure, parameters,
+                    commandType: CommandType.StoredProcedure).ToList();
 
-                return rows; 
+                return rows;
             }
         }
 
-        public void SaveData <T>(string storedProcedure, T parameters, string connectionStringName)
+        public void SaveData<T>(string storedProcedure, T parameters, string connectionStringName)
         {
             string connectionString = GetConnectionString(connectionStringName);
             using (IDbConnection connection = new SqlConnection(connectionString))
@@ -47,7 +47,7 @@ namespace DataManager.Library.Internal.DataAccess
                 connection.Execute(storedProcedure, parameters,
                    commandType: CommandType.StoredProcedure);
 
-                
+
             }
         }
 
@@ -66,20 +66,20 @@ namespace DataManager.Library.Internal.DataAccess
 
         public void SaveDataInTransaction<T>(string storedProcedure, T parameters)
         {
-            
-                _connection.Execute(storedProcedure, parameters,
-                   commandType: CommandType.StoredProcedure, transaction: _transaction);
- 
+
+            _connection.Execute(storedProcedure, parameters,
+               commandType: CommandType.StoredProcedure, transaction: _transaction);
+
         }
 
         public List<T> LoadDataInTransaction<T, U>(string storedProcedure, U parameters)
         {
-           
-                List<T> rows = _connection.Query<T>(storedProcedure, parameters,
-                    commandType: CommandType.StoredProcedure, transaction: _transaction).ToList();
 
-                return rows;
-            
+            List<T> rows = _connection.Query<T>(storedProcedure, parameters,
+                commandType: CommandType.StoredProcedure, transaction: _transaction).ToList();
+
+            return rows;
+
         }
         private bool isClosed = false;
         private IConfiguration _config;
@@ -108,23 +108,16 @@ namespace DataManager.Library.Internal.DataAccess
                 {
                     CommitTransaction();
                 }
-                catch 
+                catch
                 {
 
-                   
+
                 }
-                
+
             }
 
             _transaction = null;
             _connection = null;
         }
-
-        //Open connect/start transaction method
-        //Load using the transaction 
-        //Save using the transaction
-        //Close connection/stop transaction method
-        //Dispose 
-
     }
 }

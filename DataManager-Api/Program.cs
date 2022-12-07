@@ -1,3 +1,5 @@
+using DataManager.Library.DataAccess;
+using DataManager.Library.Internal.DataAccess;
 using DataManager_Api.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+//Personal services
+builder.Services.AddTransient<IInventoryData, InventoryData>();
+builder.Services.AddTransient<ISQLDataAccess, SQLDataAccess>();
+builder.Services.AddTransient<IProductData, ProductData>();
+builder.Services.AddTransient<ISaleData, SaleData>();
+builder.Services.AddTransient<IUserData, UserData>();
 
 builder.Services.AddAuthentication(options =>
 {

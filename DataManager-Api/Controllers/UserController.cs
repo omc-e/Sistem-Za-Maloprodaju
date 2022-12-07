@@ -18,13 +18,14 @@ namespace DataManager_Api.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IConfiguration _config;
+      
+        private readonly IUserData _userData;
 
-        public UserController(ApplicationDbContext context, UserManager<IdentityUser> userManager, IConfiguration config)
+        public UserController(ApplicationDbContext context, UserManager<IdentityUser> userManager,  IUserData userData)
         {
             _context = context;
-            _userManager = userManager;
-            _config = config;
+            _userManager = userManager; 
+            _userData = userData;
         }
         [HttpGet]
        
@@ -32,11 +33,7 @@ namespace DataManager_Api.Controllers
         {
             string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            //Using library model, not api model
-            //Because api model is for display
-            UserData data = new UserData(_config);
-
-            return data.GetUserById(userID).First();
+            return _userData.GetUserById(userID).First();
 
         }
 
@@ -63,11 +60,6 @@ namespace DataManager_Api.Controllers
                     };
 
                 u.Roles = userRoles.Where(x => x.UserId == u.Id).ToDictionary(key => key.RoleId, val => val.Name);
-
-                    //foreach (var r in user.Roles)
-                    //{
-                    //    u.Roles.Add(r.RoleId, roles.Where(x => x.Id == r.RoleId).First().Name);
-                    //}
 
                     output.Add(u);
                 }

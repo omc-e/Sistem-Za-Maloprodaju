@@ -8,32 +8,34 @@ using System.Threading.Tasks;
 
 namespace DataManager.Library.Internal.DataAccess
 {
-    public class ProductData
+    public class ProductData : IProductData
     {
-        private IConfiguration _config;
 
-        public ProductData(IConfiguration config)
+        private readonly ISQLDataAccess _sql;
+
+        public ProductData(ISQLDataAccess sql)
         {
-            _config = config;
+
+            _sql = sql;
         }
         public List<ProductModel> GetProducts()
         {
-            SQLDataAccess sql = new SQLDataAccess(_config);
 
-            
 
-            var output = sql.LoadData<ProductModel, dynamic>("dbo.spProduct_getAll", new { }, "Sistem-Za-Maloprodaju");
+
+
+            var output = _sql.LoadData<ProductModel, dynamic>("dbo.spProduct_getAll", new { }, "Sistem-Za-Maloprodaju");
 
             return output;
         }
 
-        public ProductModel GetProductById (int productId)
+        public ProductModel GetProductById(int productId)
         {
-            SQLDataAccess sql = new SQLDataAccess(_config);
 
 
 
-            var output = sql.LoadData<ProductModel, dynamic>("dbo.spProduct_getById", new { Id = productId }, "Sistem-Za-Maloprodaju-DB").FirstOrDefault();
+
+            var output = _sql.LoadData<ProductModel, dynamic>("dbo.spProduct_getById", new { Id = productId }, "Sistem-Za-Maloprodaju").FirstOrDefault();
 
             return output;
 

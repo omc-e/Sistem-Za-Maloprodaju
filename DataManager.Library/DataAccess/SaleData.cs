@@ -9,18 +9,22 @@ using System.Threading.Tasks;
 
 namespace DataManager.Library.DataAccess
 {
-    public class SaleData
+    public class SaleData : ISaleData
     {
-        private IConfiguration _config;
 
-        public SaleData(IConfiguration config)
+        private IProductData _productData;
+        private ISQLDataAccess _sql;
+
+        public SaleData(IProductData productData, ISQLDataAccess sql)
         {
-            _config = config;
+
+            _productData = productData;
+            _sql = sql;
         }
         public void SaveSale(SaleModel SaleInfo, string cashierId)
         {
             List<SaleDetailDBModel> details = new List<SaleDetailDBModel>();
-            ProductData products = new ProductData(_config);
+
             double a = 0.17;
             decimal taxRate = (decimal)a;
             foreach (var item in SaleInfo.SaleDetails)
@@ -31,7 +35,7 @@ namespace DataManager.Library.DataAccess
                     Quantity = item.Quantity
                 };
 
-                var productInfo = products.GetProductById(item.ProductId);
+                var productInfo = _productData.GetProductById(item.ProductId);
                 if (productInfo == null)
                 {
                     throw new Exception($"The product Id of {item.ProductId} could not be found in the database.");
@@ -48,47 +52,46 @@ namespace DataManager.Library.DataAccess
                 SubTotal = details.Sum(x => x.PurchasePrice),
                 Tax = details.Sum(x => x.Tax),
                 CashierId = cashierId
-                
+
             };
             sale.Total = sale.SubTotal + sale.Tax;
 
-            
 
-            using(SQLDataAccess sql = new SQLDataAccess(_config))
+
+
+            try
             {
-                try
+                _sql.StartTransaction("Sistem-Za-Maloprodaju");
+
+
+                _sql.SaveDataInTransaction("dbo.spSale_Insert", sale);
+
+
+
+                //Get the ID from the sale model
+                sale.Id = _sql.LoadDataInTransaction<int, dynamic>("spSale_Lookup", new { sale.CashierId, sale.SaleDate }).FirstOrDefault();
+
+                foreach (var item in details)
                 {
-                    sql.StartTransaction("Sistem-Za-Maloprodaju-DB");
-
-
-                    sql.SaveDataInTransaction("dbo.spSale_Insert", sale);
-
-                    
-
-                    //Get the ID from the sale model
-                    sale.Id = sql.LoadDataInTransaction<int, dynamic>("spSale_Lookup", new { sale.CashierId, sale.SaleDate }).FirstOrDefault();
-
-                    foreach (var item in details)
-                    {
-                        item.SaleId = sale.Id;
-                        sql.SaveDataInTransaction("dbo.spSaleDetail_Insert", item);
-                    }
-                    //sql.CommitTransaction();
+                    item.SaleId = sale.Id;
+                    _sql.SaveDataInTransaction("dbo.spSaleDetail_Insert", item);
                 }
-                catch
-                {
-
-                    sql.RollbackTransaction();
-                    throw;
-                }
+                //sql.CommitTransaction();
             }
+            catch
+            {
+
+                _sql.RollbackTransaction();
+                throw;
+            }
+
         }
 
         public List<SaleReportModel> GetSaleReport()
         {
-            SQLDataAccess sql = new SQLDataAccess(_config);
 
-            var output = sql.LoadData<SaleReportModel, dynamic>("dbo.spSale_SaleReport", new { }, "Sistem-Za-Maloprodaju-DB");
+
+            var output = _sql.LoadData<SaleReportModel, dynamic>("dbo.spSale_SaleReport", new { }, "Sistem-Za-Maloprodaju-DB");
 
             return output;
         }
